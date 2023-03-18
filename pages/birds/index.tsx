@@ -1,9 +1,11 @@
 import {ReactElement} from "react";
-import AuthLayout from "@/src/layouts/authLayout";
 import Layout from "@/src/layouts/baseLayout";
-import Button from "@mui/material/Button";
 import {useFalconrDispatch} from "@/src/state/hooks";
 import {logOut} from "@/src/state/slices/userSlice";
+import Grid from "@mui/material/Unstable_Grid2";
+import {pink, red, yellow} from "@mui/material/colors";
+import Box from "@mui/material/Box";
+import * as React from "react";
 
 export default function Birds() {
   const dispatch = useFalconrDispatch();
@@ -12,18 +14,24 @@ export default function Birds() {
     dispatch(logOut());
   }
 
-
   return (
-    <Button variant="contained" color={'primary'} onClick={handleSignOut}>Sign Out</Button>
+    <Box sx={{width: '100vw', height: '100vh', backgroundColor:'red'}}>
+      <Grid container>
+        <Grid xs={2} sx={{backgroundColor: yellow}}>
+          sadfa
+        </Grid>
+        <Grid container xs={10} sx={{backgroundColor:pink}}>
+          asdfasdf
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
 Birds.getLayout = (page: ReactElement) => {
   return (
     <Layout>
-      <AuthLayout>
-        {page}
-      </AuthLayout>
+      {page}
     </Layout>
   )
 }
