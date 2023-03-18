@@ -1,26 +1,30 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import {ReactNode} from "react";
-import Grid from '@mui/material/Unstable_Grid2';
-import {pink, yellow} from "@mui/material/colors";
+import { ReactNode } from "react";
+import { pink, yellow } from "@mui/material/colors";
+import Toolbar from "@/src/components/toolbar";
+import Sidebar from "@/src/components/sideBar";
 interface Props {
-  children?: ReactNode
+  children?: ReactNode;
   // any props that come into the component
 }
 
-export default function SidebarAndHeaderLayout({children}: Props) {
+export default function SidebarAndHeaderLayout({ children }: Props) {
   return (
-
-    <Box sx={{width: '100vw', height: '100vh'}}>
-      <Grid container>
-        <Grid xs={2} sx={{backgroundColor: yellow}}>
-          sadfa
-        </Grid>
-        <Grid container xs={10} sx={{backgroundColor:pink}}>
-          asdfasdf
-        </Grid>
-      </Grid>
-        {children}
+    <Box sx={{ width: "100vw", height: "100vh", display: "flex" }}>
+      <Sidebar />
+      <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+        <Box
+          sx={{
+            backgroundColor: pink,
+            height: "100px",
+            padding: "15px 30px 15px 30px",
+          }}
+        >
+          <Toolbar />
+        </Box>
+        <Box sx={{ flexGrow: 1 }}>{children}</Box>
+      </Box>
     </Box>
-  )
+  );
 }
