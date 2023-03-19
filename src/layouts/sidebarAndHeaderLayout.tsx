@@ -16,14 +16,15 @@ export default function SidebarAndHeaderLayout({ children }: Props) {
       <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
         <Box
           sx={{
-            backgroundColor: pink,
             height: "100px",
             padding: "15px 30px 15px 30px",
           }}
         >
           <Toolbar />
         </Box>
-        <Box sx={{ flexGrow: 1 }}>{children}</Box>
+        <Box sx={{ flexGrow: 1, padding: "15px 30px 15px 30px" }}>
+          {children}
+        </Box>
       </Box>
     </Box>
   );

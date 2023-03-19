@@ -1,4 +1,14 @@
-import { Avatar, Breadcrumbs, Link, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Breadcrumbs,
+  FormControl,
+  InputLabel,
+  Link,
+  MenuItem,
+  Select,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { deepPurple } from "@mui/material/colors";
 import * as React from "react";
 import { ToolBarPaper } from "@/src/components/styled/toolbarPaper";
@@ -9,19 +19,24 @@ export default function Toolbar() {
 
   return (
     <ToolBarPaper elevation={3}>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" href="/">
-          MUI
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="/material-ui/getting-started/installation/"
+      <FormControl
+        size={"small"}
+        sx={{ minWidth: 80, maxWidth: 200 }}
+        fullWidth
+      >
+        <InputLabel id="demo-simple-select-label">Bird</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={"Xerxes"}
+          label="Bird"
+          onChange={() => {}}
         >
-          Core
-        </Link>
-        <Typography color="text.primary">Breadcrumbs</Typography>
-      </Breadcrumbs>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
       <Stack direction={"row-reverse"} alignItems={"center"} spacing={2}>
         <Avatar sx={{ bgcolor: deepPurple[500] }}>OP</Avatar>
         <Typography variant="subtitle1" color="d">
