@@ -5,20 +5,26 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import LockIcon from "@mui/icons-material/Lock";
 import Button from "@mui/material/Button";
 import React from "react";
-import {useFalconrDispatch} from "@/src/state/hooks";
-import {logIn} from "@/src/state/slices/userSlice";
+import { useFalconrDispatch } from "@/src/state/hooks";
+import { logIn } from "@/src/state/slices/userSlice";
 
-export default function LoginForm(){
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+export default function LoginForm() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const dispatch = useFalconrDispatch();
 
   const handleLogin = () => {
-    dispatch(logIn({email, password}));
-  }
+    dispatch(logIn({ email, password }));
+  };
 
   return (
-    <Grid container spacing={3} direction='column' alignContent='center' alignItems='center'>
+    <Grid
+      container
+      spacing={3}
+      direction="column"
+      alignContent="center"
+      alignItems="center"
+    >
       <Grid xs={10}>
         <TextField
           fullWidth
@@ -55,11 +61,20 @@ export default function LoginForm(){
         />
       </Grid>
       <Grid xs={8}>
-        <Button fullWidth variant="contained" color={'primary'} onClick={handleLogin}>Sign In</Button>
+        <Button
+          fullWidth
+          variant="contained"
+          color={"primary"}
+          onClick={handleLogin}
+        >
+          Sign In
+        </Button>
       </Grid>
       <Grid xs={8}>
-        <Button fullWidth variant="contained" color={'success'}>Create an Account</Button>
+        <Button fullWidth variant="contained" color={"success"}>
+          Create an Account
+        </Button>
       </Grid>
     </Grid>
-  )
+  );
 }
