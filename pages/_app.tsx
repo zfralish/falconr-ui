@@ -11,10 +11,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Provider } from "react-redux";
-import { onAuthStateChanged } from "@firebase/auth";
-import { auth } from "@/src/firebase/firebase";
-import { clearUserInfo, updateUserInfo } from "@/src/state/slices/userSlice";
-import { useRouter } from "next/router";
+import { AutoRoute } from "@/src/components/autoRoute";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -26,29 +23,12 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
-  const { push, isReady } = useRouter();
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      if (user.uid !== store.getState().user.uid) {
-        store.dispatch(updateUserInfo({ email: user.email, uid: user.uid }));
-        if (isReady) {
-          push("/birds");
-        }
-      }
-    } else {
-      store.dispatch(clearUserInfo());
-      if (isReady) {
-        push("/auth/sign-in");
-      }
-    }
-  });
 
   return (
     <Provider store={store}>
       <ThemeProvider theme={NordTheme}>
         <CssBaseline />
-        {getLayout(<Component {...pageProps} />)}
+        <AutoRoute>{getLayout(<Component {...pageProps} />)}</AutoRoute>
       </ThemeProvider>
     </Provider>
   );

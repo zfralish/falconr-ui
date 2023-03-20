@@ -5,7 +5,7 @@ import { useFalconrDispatch } from "@/src/state/hooks";
 import { logOut } from "@/src/state/slices/userSlice";
 import SidebarAndHeaderLayout from "@/src/layouts/sidebarAndHeaderLayout";
 
-export default function Birds() {
+export default function Weights() {
   const dispatch = useFalconrDispatch();
 
   const handleSignOut = () => {
@@ -15,7 +15,7 @@ export default function Birds() {
   return <p>sadfasdf</p>;
 }
 
-Birds.getLayout = (page: ReactElement) => {
+Weights.getLayout = (page: ReactElement) => {
   return (
     <Layout>
       <SidebarAndHeaderLayout>{page}</SidebarAndHeaderLayout>

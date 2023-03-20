@@ -1,31 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { auth } from "../../firebase/firebase";
-import { signInWithEmailAndPassword, signOut } from "@firebase/auth";
+import { Auth } from "../../firebase/firebase";
+import { signInWithEmailAndPassword, signOut, User } from "@firebase/auth";
+import { RootState } from "@/src/state/store";
 
 export const logIn = createAsyncThunk(
   "user/logIn",
   async (credentials: { email: string; password: string }) => {
-    console.log(credentials);
     const { email, password } = credentials;
-    await signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(Auth, email, password);
   }
 );
 
 export const logOut = createAsyncThunk("user/logOut", async () => {
-  await signOut(auth);
+  await signOut(Auth);
 });
 
 export interface UserState {
-  uid: string;
-  email: string | null;
   loggedIn: boolean;
   loading: "idle" | "pending" | "succeeded" | "failed";
 }
 
 const initialState: UserState = {
-  uid: "",
-  email: null,
   loggedIn: false,
   loading: "idle",
 };
@@ -34,17 +30,10 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    updateUserInfo: (
-      state,
-      action: PayloadAction<{ uid: string; email: string | null }>
-    ) => {
-      state.uid = action.payload.uid;
-      state.email = action.payload.email;
+    updateUserInfo: (state) => {
       state.loggedIn = true;
     },
     clearUserInfo: (state) => {
-      state.uid = "";
-      state.email = "";
       state.loggedIn = false;
     },
   },
@@ -55,6 +44,7 @@ export const userSlice = createSlice({
       })
       .addCase(logIn.fulfilled, (state) => {
         state.loading = "succeeded";
+        state.loggedIn = true;
       })
       .addCase(logIn.rejected, (state) => {
         state.loading = "failed";
@@ -64,6 +54,7 @@ export const userSlice = createSlice({
       })
       .addCase(logOut.fulfilled, (state) => {
         state.loading = "succeeded";
+        state.loggedIn = false;
       })
       .addCase(logOut.rejected, (state) => {
         state.loading = "failed";
@@ -73,4 +64,6 @@ export const userSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { updateUserInfo, clearUserInfo } = userSlice.actions;
+
+export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

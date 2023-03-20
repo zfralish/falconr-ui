@@ -17,6 +17,9 @@ import { styled } from "@mui/material/styles";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Button from "@mui/material/Button";
+import { useFalconrDispatch } from "@/src/state/hooks";
+import { clearUserInfo, logOut } from "@/src/state/slices/userSlice";
+import { useRouter } from "next/router";
 
 export const RoundedListItemButton = styled(ListItemButton)(({ theme }) => ({
   borderRadius: "5px",
@@ -38,6 +41,13 @@ const NavList = styled(List)<{ component?: React.ElementType }>({
 });
 
 export default function Sidebar() {
+  const dispatch = useFalconrDispatch();
+  const router = useRouter();
+  const handleSignOut = () => {
+    router.push("/auth/sign-in");
+    dispatch(logOut());
+  };
+
   return (
     <SideMenuPaper elevation={3}>
       <Stack
@@ -51,6 +61,16 @@ export default function Sidebar() {
           </Typography>
           <Box sx={{ width: "100%" }}>
             <NavList>
+              <Link href={"/dashboard"} passHref>
+                <ListItem disablePadding>
+                  <RoundedListItemButton>
+                    <ListItemIcon>
+                      <Typography variant={"h5"}>🏠</Typography>
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                  </RoundedListItemButton>
+                </ListItem>
+              </Link>
               <Link href={"/birds"} passHref>
                 <ListItem disablePadding>
                   <RoundedListItemButton>
@@ -61,7 +81,7 @@ export default function Sidebar() {
                   </RoundedListItemButton>
                 </ListItem>
               </Link>
-              <Link href={"/food"} passHref>
+              <Link href={"/feedings"} passHref>
                 <ListItem disablePadding>
                   <RoundedListItemButton>
                     <ListItemIcon>
@@ -71,7 +91,7 @@ export default function Sidebar() {
                   </RoundedListItemButton>
                 </ListItem>
               </Link>
-              <Link href={"/training"} passHref>
+              <Link href={"/hunts"} passHref>
                 <ListItem disablePadding>
                   <RoundedListItemButton>
                     <ListItemIcon>
@@ -81,7 +101,7 @@ export default function Sidebar() {
                   </RoundedListItemButton>
                 </ListItem>
               </Link>
-              <Link href={"/hunting"} passHref>
+              <Link href={"/trainings"} passHref>
                 <ListItem disablePadding>
                   <RoundedListItemButton>
                     <ListItemIcon>
@@ -95,7 +115,7 @@ export default function Sidebar() {
           </Box>
         </Stack>
         <NavList>
-          <Link href={"/auth/sign-in"} passHref>
+          <Link href={"/settings"} passHref>
             <ListItem disablePadding>
               <RoundedListItemButton>
                 <ListItemIcon>
@@ -105,9 +125,9 @@ export default function Sidebar() {
               </RoundedListItemButton>
             </ListItem>
           </Link>
-          <Link href={"/settings"} passHref>
+          <Link href={"/auth/sign-in"} passHref>
             <ListItem disablePadding>
-              <RoundedListItemButton>
+              <RoundedListItemButton onClick={handleSignOut}>
                 <ListItemIcon>
                   <LogoutIcon />
                 </ListItemIcon>
