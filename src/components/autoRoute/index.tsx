@@ -5,6 +5,8 @@ import { onAuthStateChanged } from "@firebase/auth";
 import { Auth } from "@/src/firebase/firebase";
 import { clearUserInfo, updateUserInfo } from "@/src/state/slices/userSlice";
 import Layout from "@/src/layouts/baseLayout";
+import AuthLayout from "@/src/layouts/authLayout";
+import LoginForm from "@/src/components/loginForm";
 interface AutoRouteProps {
   children: React.ReactNode;
 }
