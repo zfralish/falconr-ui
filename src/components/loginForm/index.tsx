@@ -17,64 +17,68 @@ export default function LoginForm() {
     dispatch(logIn({ email, password }));
   };
 
-  return (
-    <Grid
-      container
-      spacing={3}
-      direction="column"
-      alignContent="center"
-      alignItems="center"
-    >
-      <Grid xs={10}>
-        <TextField
-          fullWidth
-          id="email-input"
-          label="Email"
-          autoComplete="current-password"
-          variant="outlined"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AccountCircle />
-              </InputAdornment>
-            ),
-          }}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+  const renderLoginForm = () => {
+    return (
+      <Grid
+        container
+        spacing={3}
+        direction="column"
+        alignContent="center"
+        alignItems="center"
+      >
+        <Grid xs={10}>
+          <TextField
+            fullWidth
+            id="email-input"
+            label="Email"
+            autoComplete="current-password"
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Grid>
+        <Grid xs={10}>
+          <TextField
+            fullWidth
+            id="password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            variant="outlined"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              ),
+            }}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Grid>
+        <Grid xs={8}>
+          <Button
+            fullWidth
+            variant="contained"
+            color={"primary"}
+            onClick={handleLogin}
+          >
+            Sign In
+          </Button>
+        </Grid>
+        <Grid xs={8}>
+          <Button fullWidth variant="contained" color={"success"}>
+            Create an Account
+          </Button>
+        </Grid>
       </Grid>
-      <Grid xs={10}>
-        <TextField
-          fullWidth
-          id="password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="outlined"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <LockIcon />
-              </InputAdornment>
-            ),
-          }}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </Grid>
-      <Grid xs={8}>
-        <Button
-          fullWidth
-          variant="contained"
-          color={"primary"}
-          onClick={handleLogin}
-        >
-          Sign In
-        </Button>
-      </Grid>
-      <Grid xs={8}>
-        <Button fullWidth variant="contained" color={"success"}>
-          Create an Account
-        </Button>
-      </Grid>
-    </Grid>
-  );
+    );
+  };
+
+  return renderLoginForm();
 }

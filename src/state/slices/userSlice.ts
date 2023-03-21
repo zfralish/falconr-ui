@@ -18,11 +18,13 @@ export const logOut = createAsyncThunk("user/logOut", async () => {
 
 export interface UserState {
   loggedIn: boolean;
+  initialized: boolean;
   loading: "idle" | "pending" | "succeeded" | "failed";
 }
 
 const initialState: UserState = {
   loggedIn: false,
+  initialized: false,
   loading: "idle",
 };
 
@@ -32,9 +34,11 @@ export const userSlice = createSlice({
   reducers: {
     updateUserInfo: (state) => {
       state.loggedIn = true;
+      state.initialized = true;
     },
     clearUserInfo: (state) => {
       state.loggedIn = false;
+      state.initialized = true;
     },
   },
   extraReducers: (builder) => {
@@ -44,7 +48,6 @@ export const userSlice = createSlice({
       })
       .addCase(logIn.fulfilled, (state) => {
         state.loading = "succeeded";
-        state.loggedIn = true;
       })
       .addCase(logIn.rejected, (state) => {
         state.loading = "failed";
@@ -54,7 +57,6 @@ export const userSlice = createSlice({
       })
       .addCase(logOut.fulfilled, (state) => {
         state.loading = "succeeded";
-        state.loggedIn = false;
       })
       .addCase(logOut.rejected, (state) => {
         state.loading = "failed";

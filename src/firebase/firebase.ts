@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "@firebase/auth";
+import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { store } from "@/src/state/store";
+import { clearUserInfo, updateUserInfo } from "@/src/state/slices/userSlice";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAYy07OmRkMyL_fJ-NDUAvUjVh0c0-Q93M",
@@ -17,3 +19,11 @@ const firebaseConfig = {
 export const App = initializeApp(firebaseConfig);
 export const Auth = getAuth(App);
 export const Db = getFirestore(App);
+
+onAuthStateChanged(Auth, (user) => {
+  if (user) {
+    store.dispatch(updateUserInfo());
+  } else {
+    store.dispatch(clearUserInfo());
+  }
+});

@@ -14,30 +14,22 @@ interface AutoRouteProps {
 export function AutoRoute({ children }: AutoRouteProps) {
   const router = useRouter();
   const loggedIn = useFalconrSelector((state) => state.user.loggedIn);
-  const dispatch = useFalconrDispatch();
+  const initialized = useFalconrSelector((state) => state.user.initialized);
+  const [prevRoute, setPrevRoute] = React.useState<string>("");
 
   useEffect(() => {
-    if (loggedIn) {
-      if (router.route === "/auth/sign-in") {
+    if (initialized) {
+      if (loggedIn && router.route === "/auth/sign-in") {
+        console.log("redirecting to dashboard");
         router.push("/dashboard");
-      }
-    } else {
-      if (router.route !== "/auth/sign-in") {
+      } else if (!loggedIn && router.route !== "/auth/sign-in") {
+        console.log("redirecting to sign in");
         router.push("/auth/sign-in");
       }
     }
-  }, [loggedIn]);
-
-  onAuthStateChanged(Auth, (user) => {
-    if (user) {
-      dispatch(updateUserInfo());
-    } else {
-      dispatch(clearUserInfo());
-    }
-  });
+  }, [loggedIn, initialized]);
 
   const routeBasedRender = () => {
-    console.log(loggedIn);
     if (router.route === "/auth/sign-in" || loggedIn) {
       return children;
     }
