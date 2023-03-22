@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useFalconrDispatch, useFalconrSelector } from "@/src/state/hooks";
-import { onAuthStateChanged } from "@firebase/auth";
-import { Auth } from "@/src/firebase/firebase";
-import { clearUserInfo, updateUserInfo } from "@/src/state/slices/userSlice";
+import { useFalconrSelector } from "@/src/state/hooks";
 import Layout from "@/src/layouts/baseLayout";
-import AuthLayout from "@/src/layouts/authLayout";
-import LoginForm from "@/src/components/loginForm";
 interface AutoRouteProps {
   children: React.ReactNode;
 }
@@ -20,10 +15,8 @@ export function AutoRoute({ children }: AutoRouteProps) {
   useEffect(() => {
     if (initialized) {
       if (loggedIn && router.route === "/auth/sign-in") {
-        console.log("redirecting to dashboard");
         router.push("/dashboard");
       } else if (!loggedIn && router.route !== "/auth/sign-in") {
-        console.log("redirecting to sign in");
         router.push("/auth/sign-in");
       }
     }
@@ -33,6 +26,8 @@ export function AutoRoute({ children }: AutoRouteProps) {
     if (router.route === "/auth/sign-in" || loggedIn) {
       return children;
     }
+
+    //TODO put spinner here
     return (
       <Layout>
         <></>
