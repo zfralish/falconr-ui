@@ -28,12 +28,12 @@ export const themeOptions: ThemeOptions = {
       dark: "#BF616A",
     },
     warning: {
-      main: "#EBCB8B",
+      main: "#D08770",
       light: "#EBCB8B",
       dark: "#EBCB8B",
     },
     info: {
-      main: "#B48EAD",
+      main: "#A3BE8C",
       light: "#B48EAD",
       dark: "#B48EAD",
     },

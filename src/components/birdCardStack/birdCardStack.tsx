@@ -9,9 +9,9 @@ function BirdCardStack() {
         bird={{
           falconerId: "sadfsadf",
           id: "asdfa",
-          name: "sdafasd",
-          species: "asdlfka;sdf",
-          trapDate: new Date(),
+          name: "Ceres",
+          species: "Red Tailed Hawk",
+          trapDate: new Date("2021-01-01"),
         }}
       />
     </Stack>
